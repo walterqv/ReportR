@@ -1,0 +1,69 @@
+---
+title: "Reporte Estadístico"
+author:
+- familyname: Quispe Vargas
+  othernames: Walter
+  qualifications: Docente de la UNSAAC, PhD
+email: walter.quispev@unsaac.edu.pe
+phone: (51) 974 377 276
+department: UNIVERSIDAD NACIONAL DE \newline SAN ANTONIO ABAD DEL CUSCO \newline  \newline Departmento Académico de\newline Matemática y Estadística
+organization: Fundamentos de Probabilidad
+number-sections: true
+fig-height: 5
+fig-width: 8
+cite-method: biblatex
+bibliography: references.bib
+biblio-style: authoryear-comp
+linestretch: 1.5
+format: report-pdf
+lang: es
+execute:
+  echo: false
+  warning: false
+  message: false
+  tbl-cap-location: bottom
+---
+
+
+# Introducción
+
+En el artículo famoso, @BC64 introdujeron una **familia de transformaciones** \dots
+
+```{r}
+#| label: fig-density
+#| fig-cap: Simulación de datos de una Distribución N(0,1).
+library(tidyverse)
+set.seed(1234)
+df <- tibble(x = rnorm(200))
+df |>
+  ggplot(aes(x=x)) +
+  geom_density(bw = "SJ", color = "magenta") +
+  geom_rug(alpha=0.9, color = "cyan")
+```
+
+La @fig-density muestra el *Kernel* de una distribución `Normal Estándar` "$N(0,1)$" simulada. La varianza muestral esta dada por:
+$$
+  s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i-\bar{x})^2 = `r round(sd(df$x), 2)`.
+$$ {#eq-s2}
+Notar que la @eq-s2 es un estimador insegado de la varianza, pero no es un estimador de maxima ***verosimilitud*** [@Rice2007, p.269].
+
+{{< pagebreak >}}
+
+```{r}
+#| label: tbl-example
+#| tbl-cap: "Ejemplo de una tabla"
+
+library(knitr)
+library(kableExtra)
+head(iris,10) |> 
+  kable(booktabs = TRUE,
+        align = 'ccccl',
+        linesep = "" ,
+        format.args = list(big.mark = ",", digits = 4)) |> 
+  kable_styling(latex_options = c("HOLD_position","striped"), font_size = 11)%>%
+  row_spec(0, align = "c",bold=T )
+```
+La @tbl-example muestra las primeras `r nrow(head(iris,10))` filas del *dataset* **IRIS**...
+
+
+
